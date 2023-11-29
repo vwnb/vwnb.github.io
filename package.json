@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "push": "git subtree push --prefix dist origin gh-pages"
+    "push": "git add dist -f && git commit -am 'Update view' && git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
