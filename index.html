@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="windows-1252">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<title>Ville Kemppainen</title>
+
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+
+<style>
+
+	body{
+		margin: 0;
+		padding: 2rem;
+		font-size: 1.2rem;
+		font-weight:400;
+		color: #222;
+		background: ghostwhite;
+		word-spacing:1.5px;
+	}
+	
+	*{
+		box-sizing:border-box;
+	}
+	
+	a, div{
+		font-family: Courier New, monospace;
+		letter-spacing:0.1px;
+		font-weight:500;
+	}
+	
+	body>p, body>div, header{
+		margin:30px 3%;
+		width:27%;
+		float:left;
+	}
+
+	a{
+		text-decoration:none;
+		transition:0.1s all;
+	}
+	
+	div a, h1{
+		font-family:'Droid serif', Times;
+		letter-spacing:0.3px;
+		font-size: 1.3em;
+		font-weight:200;
+	}
+	
+	div p:last-child{
+	    margin: 0;
+	}
+
+	ul{
+		clear:both;
+		padding: 0;
+	}
+
+	body{
+		display:flex;
+		flex-wrap:wrap;
+	}
+
+	li{
+		list-style-type: none;
+	}
+	
+	body>div{
+		display:flex;
+		width:27%;
+		background:lavender;
+		flex-direction: column;
+		margin:30px 3%;
+		padding: 0 0 2rem 2rem;
+		opacity:0.9
+		float:left;
+	}
+	
+	a:hover{
+		transform:skew(-8deg, 0);
+		transition:0.1s all;
+	}
+	
+	div>div{
+		margin:2rem 0 1rem 2rem;
+	}
+
+	div a{
+		flex-grow:2;
+		display: block;
+		background:#222;
+		color:#fff;
+		padding:1.3rem;
+	}
+	
+	header{
+		min-height:3em;
+		position:relative;
+	}
+	
+	header h1{
+		position:absolute;
+		margin:0;
+		bottom:0;
+		right:0;
+		text-align:right;
+	}
+	
+	@media screen and (max-width: 1300px){
+		body>div, p, header{
+			width:44%;
+		}
+	}
+	
+	@media screen and (max-width: 900px){
+		body{
+			font-size: 1.05rem;
+		}
+		body>div, p, header{
+			width:94%;
+		}
+		header h1{
+			position:static
+		}
+	}
+	
+
+</style>
+</head>
+<body>
+	
+	<header><h1>portfolio<br>— Ville Kemppainen</h1></header>
+
+	<div>
+		<a href="http://en.ilmatieteenlaitos.fi/download-observations">FMI weather observation GUI</a>
+		<p>Weather data from way back; service implementation.</p>
+		<p>2023; ExpressJS, ReactJS</p>
+	</div>
+
+	<div>
+		<a href="https://github.com/vwnb/alien-arpeggios">Alien Arpeggios</a>
+		<p>Generative music; code sample.</p>
+		<p>2023; NodeJS</p>
+	</div>
+	
+	<div>
+		<a href="/react_viterbi">react_viterbi</a>
+		<p>A demonstration of the Viterbi algorithm implemented in React.</p>
+		<p>2023; ReactJS</p>
+	</div>
+
+	<div>
+		<a href="/lavender">Lavender Tree</a>
+		<p>Generative animation.</p>
+		<p>2014; Javascript</p>
+	</div>
+
+	<p>
+		<a href="https://www.linkedin.com/in/villekenbainen">🕸️ LinkedIn</a><br>
+		<a href="https://github.com/vwnb">💻 GitHub</a>
+	</p>
+
+</body>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lavender Tree</title>
+<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body{
+	font-family: 'Gilda Display', serif;
+	background:ghostwhite;
+	color:#656064;
+}
+body, #canvas{
+	margin:0;padding:0;
+}
+
+#canvas{
+	background:lavender;
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #d7cbd4),
+		color-stop(1, #e6e6fa)
+	);
+	background-image: -o-linear-gradient(top, #d7dbd4 0%, #e6e6fa 80%, #fffafa 100%);
+	background-image: -moz-linear-gradient(top, #d7dbd4 0%, #e6e6fa 80%, #fffafa 100%);
+	background-image: -webkit-linear-gradient(top, #d7dbd4 0%, #e6e6fa 80%, #fffafa 100%);
+	background-image: -ms-linear-gradient(top, #d7dbd4 0%, #e6e6fa 80%, #fffafa 100%);
+	background-image: linear-gradient(to bottom, #d7dbd4 0%, #e6e6fa 80%, #fffafa 100%);
+	background-size:100% 600px;
+	border-bottom:1px dotted #bab
+}
+h1{
+	font-weight:300;
+	border-bottom:1px solid #656064;
+	display:inline-block;
+	margin:0;
+}
+a{color:#656064; }
+
+#info{
+	position:absolute;
+	left:380px;
+	top:400px;
+}
+
+i{ display:inline-block; cursor:pointer; }
+i:hover{ text-decoration:underline; }
+
+@media screen and (max-width:1100px){
+	body{
+		padding-bottom:2em;
+	}
+	#info{
+		position:static;
+		padding:2em;
+	}
+}
+</style>
+
+<script type="text/javascript">
+
+//prepare some variables
+var tree, premiumgraphics2001,
+    premiumgraphics2001 = true,
+    craytoggle = false,
+    craymultiplier = 1,
+    releaseall = false;
+var c, ctx, renderinterval;
+
+//reset function
+function gogogo(){
+	clearInterval(renderinterval);
+	c=document.getElementById("canvas");
+	ctx=c.getContext("2d");
+    tree = {};
+    craymultiplier = 1;
+	seed();
+	renderinterval = setInterval(function(){renderTree()}, 50);
+}
+
+function graphics(){
+	premiumgraphics2001 = !premiumgraphics2001;
+}
+
+function cray(){
+	craytoggle = !craytoggle;
+	if (craytoggle){
+		craymultiplier = 7;
+	}else{
+		craymultiplier = 1;
+	}
+}
+
+function release(){
+	releaseall = true;
+}
+
+//create the object
+function seed(){
+	tree = [];
+	for(var i=0; i<Math.floor(Math.random()*3)+4;i++){
+		tree[i] = {
+		    xpos: (Math.random()-0.5)*220,
+		    ypos: (Math.random()-0.8)*220,
+		    xdirection: ((Math.random()-0.5)),
+		    ydirection: ((Math.random()-0.5)),
+		    subnodes: []
+		}
+		for(var j=0; j<Math.floor(Math.random()*3)+4;j++){
+			tree[i].subnodes[j] = {
+			    xpos: (Math.random()-0.5)*150,
+			    ypos: (Math.random()-0.7)*170,
+			    xdirection: ((Math.random()-0.5)),
+			    ydirection: ((Math.random()-0.5)),
+			    subsubnodes: []
+			}
+			for(var k=0; k<Math.floor(Math.random()*3)+5;k++){
+				tree[i].subnodes[j].subsubnodes[k] = {
+				    xpos: (Math.random()-0.5)*80,
+				    ypos: (Math.random()-0.6)*80,
+				    xdirection: ((Math.random()-0.5)),
+				    ydirection: ((Math.random()-0.5)),
+				    dead: false,
+				    fallen: false,
+				    color: 'rgb('+Math.floor(Math.random()*50+180)+','+Math.floor(Math.random()*50+150)+','+Math.floor(Math.random()*50+190)+')'
+				}
+			}
+		}
+	}
+}
+
+//render a frame
+function renderTree(){
+
+	c.width = window.innerWidth;
+	ctx.clearRect(0,0,c.width,c.height);
+	ctx.beginPath();
+	ctx.strokeStyle = "#656064";
+	ctx.lineWidth = 0.7;
+	ctx.moveTo(250, 350);
+	ctx.bezierCurveTo(250, 450, 300, 550, 300, 600);
+	ctx.stroke();
+	
+	tree.map(function(node){
+	
+		//by a random chance change the direction of a branch
+		if(Math.floor(Math.random()*30+1)==1){ node.xdirection = (Math.random()-0.5); }
+		if(Math.floor(Math.random()*30+1)==1){ node.ydirection = (Math.random()-0.5); }
+		//move the branch
+		
+		node.xpos += (node.xdirection / 4) * craymultiplier;
+		node.ypos += (node.ydirection / 4) * craymultiplier;
+		//absolute coordinates based on relative coordinates
+		var absxpos = 250 + node.xpos;
+		var absypos = 350 + node.ypos;
+		
+		//render branch
+		ctx.beginPath();
+		ctx.lineWidth=0.4;
+		ctx.moveTo(250, 350);
+		ctx.bezierCurveTo(250, 350-30, absxpos, absypos-30, absxpos, absypos);
+		ctx.stroke();
+		
+							
+		//subbranch
+		node.subnodes.map(function(subnode){
+			if(Math.floor(Math.random()*30+1)==1){ subnode.xdirection = (Math.random()-0.5); }
+			if(Math.floor(Math.random()*30+1)==1){ subnode.ydirection = (Math.random()-0.5); }
+			
+			subnode.xpos += (subnode.xdirection/1.5)*craymultiplier;
+			subnode.ypos += (subnode.ydirection/1.5)*craymultiplier;
+			var subxpos = absxpos + subnode.xpos;
+			var subypos = absypos + subnode.ypos;
+
+			ctx.beginPath();
+			ctx.lineWidth=0.3;
+			ctx.moveTo(absxpos, absypos);
+			ctx.bezierCurveTo(absxpos, absypos+40, subxpos, subypos+30, subxpos, subypos);
+			ctx.stroke();
+			
+			subnode.subsubnodes.map(function(flower){
+			
+				if (flower.fallen==false){
+				
+					//flower has 1 in 1000 chance to die
+					if(Math.floor(Math.random()*1000+1)==1 || releaseall==true){
+						flower.dead = true;
+					}
+					
+					//if flower is not dead move it to relative direction, else fall
+					if(flower.dead==false){
+						if(Math.floor(Math.random()*40+1)==1){ flower.xdirection = (Math.random()-0.5); }
+						if(Math.floor(Math.random()*40+1)==1){ flower.ydirection = (Math.random()-0.5); }
+					}else{
+                        flower.xdirection = 3;
+                        flower.ydirection = 1;
+					}
+					
+					flower.xpos += (flower.xdirection/3)*craymultiplier;
+					flower.ypos += (flower.ydirection/3)*craymultiplier;
+					
+					var subsubxpos = subxpos + flower.xpos;
+					var subsubypos = subypos + flower.ypos;
+					
+					//render little branch if flower is alive
+					if(flower.dead==false){
+						ctx.beginPath();
+						ctx.lineWidth=0.2;
+						ctx.moveTo(subxpos, subypos);
+						ctx.bezierCurveTo(subxpos, subypos-20, subsubxpos, subsubypos-10, subsubxpos, subsubypos);
+						ctx.stroke();
+					}
+
+					//fallen flower
+					if(subsubypos>595){
+						flower.fallen = true;
+					}
+					
+				}else{
+				    
+					//fallen flower has fixed y
+					//edit: fallen flower bounces :^^^D
+					
+					if(subypos + flower.ypos > 595){
+					    flower.ydirection = -5 - (Math.random() * 10);
+					}
+					
+					flower.ydirection += 0.5;
+
+                    flower.ypos += (flower.ydirection/3)*craymultiplier;
+                    
+                    if(Math.floor(Math.random()*40+1)==1){ flower.xdirection = (Math.random()-0.5) * 5; }
+                    
+					flower.xpos += (flower.xdirection/3)*craymultiplier;
+
+					var subsubxpos = subxpos + flower.xpos;
+					var subsubypos = subypos + flower.ypos;
+					
+				}
+				
+				if(premiumgraphics2001==true){
+					//petals
+					ctx.beginPath();
+					ctx.arc(subsubxpos, subsubypos+4, 1.5, 0, 2 * Math.PI, false);
+					ctx.fillStyle = flower.color;
+					ctx.fill();
+					
+					ctx.beginPath();
+					ctx.arc(subsubxpos+3, subsubypos+1.7, 1.5, 0, 2 * Math.PI, false);
+					ctx.fillStyle = flower.color;
+					ctx.fill();
+					
+					ctx.beginPath();
+					ctx.arc(subsubxpos-3, subsubypos+1.7, 1.5, 0, 2 * Math.PI, false);
+					ctx.fillStyle = flower.color;
+					ctx.fill();
+
+					ctx.beginPath();
+					ctx.arc(subsubxpos-2, subsubypos-2, 1.5, 0, 2 * Math.PI, false);
+					ctx.fillStyle = flower.color;
+					ctx.fill();
+					
+					ctx.beginPath();
+					ctx.arc(subsubxpos+2, subsubypos-2, 1.5, 0, 2 * Math.PI, false);
+					ctx.fillStyle = flower.color;
+					ctx.fill();
+					
+					//some glitter :3
+					if(flower.dead==false){
+						ctx.beginPath();
+						ctx.arc(subsubxpos+((Math.random()-0.5)*100), subsubypos+((Math.random()-0.5)*100), 1, 0, 2 * Math.PI, false);
+						ctx.fillStyle = "#fff";
+						ctx.fill();
+						ctx.beginPath();
+						ctx.arc(subsubxpos+((Math.random()-0.5)*100), subsubypos+((Math.random()-0.5)*100), 0.5, 0, 2 * Math.PI, false);
+						ctx.fillStyle = "#fff";
+						ctx.fill();
+						ctx.beginPath();
+						ctx.arc(subsubxpos+((Math.random()-0.5)*100), subsubypos+((Math.random()-0.5)*100), 0.5, 0, 2 * Math.PI, false);
+						ctx.fillStyle = "#fff";
+						ctx.fill();
+					}
+				}else{
+					ctx.beginPath();
+					ctx.arc(subsubxpos, subsubypos, 4, 0, 2 * Math.PI, false);
+					ctx.fillStyle = flower.color;
+					ctx.fill();
+				}
+				
+			});
+		});
+	});
+	
+}
+
+
+
+</script>
+</head>
+<body onload="gogogo()">
+<canvas id="canvas" height="600" width="500">
+Your browser does not support canvas animation :(
+</canvas>
+<div id="info">
+<h1>Lavender tree</h1>
+<p id="reset"><i onclick="gogogo()">reset</i> or <i onclick="cray()"> toggle speed </i> or <i onclick="release()"> summon instant winter </i></p>
+<p>by Ville Kemppainen 2014 </p>
+</div>
+</body>
+</html>

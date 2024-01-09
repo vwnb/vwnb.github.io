@@ -1,0 +1,3 @@
+[31-May-2014 16:06:28 UTC] PHP Warning:  get_browser() [<a href='function.get-browser'>function.get-browser</a>]: browscap ini directive not set in /home/vjk/public_html/lavender/index.php on line 208
+[31-May-2014 16:06:51 UTC] PHP Warning:  get_browser() [<a href='function.get-browser'>function.get-browser</a>]: browscap ini directive not set in /home/vjk/public_html/lavender/index.php on line 208
+[31-May-2014 16:07:23 UTC] PHP Warning:  get_browser() [<a href='function.get-browser'>function.get-browser</a>]: browscap ini directive not set in /home/vjk/public_html/lavender/index.php on line 208

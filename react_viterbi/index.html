@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>react_viterbi</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * {
+                font-family: 'Courier New', Courier, monospace;
+                font-family: 'Courier New', Courier, monospace;
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                background:linear-gradient(#fff, #eee);
+                min-height: 100vh;
+            }
+
+            p {
+                margin: 0.5em 0;
+            }
+
+            h3 {
+                margin: 1em 0 0.5em;
+            }
+
+            button, input[type="submit"], select {
+                padding: 0.25em 0.5em;
+                color: #fff;
+                background: #000;
+                border-radius: 0;
+                border: none;
+                cursor: pointer;
+            }
+
+            button:hover, input[type="submit"]:hover {
+                color: #000;
+                background: #fff;
+            }
+
+            .poem {
+                padding:2em;
+                width: 50%;
+            }
+
+            .toggle {
+                position: fixed;
+                right: 0;
+                top: 0;
+                padding: 2em;
+                z-index: 10;
+            }
+
+            .controls {
+                display: none;
+                position: absolute;
+                top: 0;
+                right:0;
+                background: rgba(210, 255, 255, 0.8);
+                width: 50%;
+                padding: 2em;
+                line-height: 1.5em;
+            }
+
+            .controls.visible {
+                display: block;
+            }
+
+            .controls .invalid input[type="text"],
+            .controls .invalid textarea {
+                background: rgb(255, 210, 210);
+            }
+
+            code, textarea {
+                background: white;
+                padding: 0 0.25em;
+                border: 1px solid gray;
+                border-radius: 3px;
+            }
+
+            @media screen and (max-width: 900px) {
+                .poem, .controls {
+                    width:auto;
+                    left: 0;
+                }
+
+                .controls {
+                    box-shadow: 0 0 20px black;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="./dist/bundle.js" type="text/javascript" charset="UTF-8"></script>
+    </body>
+</html>
